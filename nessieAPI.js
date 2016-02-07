@@ -6,32 +6,34 @@ var atms = null // atm array
 
 function main() {
   // use default values (geolocation too annoying)
-  getAtms(38.8960952, -77.1333157)
-
+	atms = getAtms(38.8960952, -77.1333157, 1)
+	merchantMain()
 }
 
 function updateAtmLocation() {
-  var mapppp = map
-  var mapCenter = map.getCenter()
   var lat = map.getCenter().lat()
   var lng = map.getCenter().lng()
   getAtms(lat, lng)
 }
 
-function getAtms(lat, lng) {
+function getAtms(lat, lng, page) {
   $.ajax({
-    url: "http://api.reimaginebanking.com/atms?lat=" + lat + "&lng=" + lng + "&rad=10&key=" + apiKey,
+    url: "http://api.reimaginebanking.com/atms?lat=" + lat + "&lng=" + lng + "&rad=5&key=" + apiKey + "&page=" + page,
     type: "GET",
     contentType: 'application/json',  // this is a required header
     success: function(resultsJson) {
+	  //console.log(page)
       atms = resultsJson
       drawAllAtmMarkers()
+	  if(atms.data.length > 0) {
+		getAtms(lat, lng, ++page)
+	  }
     }
   });
 }
 
 function drawAllAtmMarkers() {
-  console.log(atms)
+  //console.log(atms)
   var atmData = atms.data
   var atm = null
   var i
@@ -44,9 +46,8 @@ function drawAllAtmMarkers() {
                   " " + addr.city + " " + addr.state + " " + addr.zip + "<br/>" +
                   "<b>Hours: </b>" + atm.hours[0] + "<br/>" +
                   "<b>Accessibility: </b>"
-     atm.accessibility ? content += "accessible as FUCK" : content += "get rekt m8"
-
-
+     atm.accessibility ? content += "Disabled-Friendly" : content += "Disabled peeps don't come here"
+content += </br/> "<b>Total Number of Transactions: </b>" + 
     drawAtmMarker(atm.geocode.lat, atm.geocode.lng, title, content)
   }
 }
