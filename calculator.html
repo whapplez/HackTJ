@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<font color="white">
+<center>
+<head>
+<link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" type="text/css" href="main.css">
+
+<div class="container"> 
+		  <div class="row">
+			<div class="col-md-4"><a href="Merc.html" class="btn btn-sm animated-button victoria-three">Frequent ATM Map</a> </div>
+			<div class="col-md-3 col-sm-3 col-xs-6"> <a href="mapsHome.html" class="btn btn-sm animated-button victoria-three">Heat Map</a> </div>
+			</div>
+			</div>
+			<h1>
+<font size="20">
+Withdrawal Helper
+</font>
+</h1>
+</head>
+<body>
+<p>
+<div>
+Please input your weekly salary:<br>
+<input id = "annualSal" type="text" name="income" ><br><br>
+Please input the amount you want to have saved:<br><br>
+<input id = "moneyGoal" type="text" name="goal" ><br><br>
+Please input the amount of weeks you want this amount saved by:<br><br>
+<input id = "dueDate" type="text" name="goal" ><br><br>
+<button onclick = "Submit()">Submit</button>
+</div>
+<br>
+<br>
+<div>
+<p id = "j">Money saved per week to reach goal: </p><br>
+<h id = "o"></h>
+<p id = "k">Money put away each week for emergencies (5%): </p><br>
+<h id = "i"></h>
+<p id = "w">Recommended weekly withdrawal amount: </p><br>
+<h id = "p"></h>
+</div>
+<script>
+	function Submit(){
+	var aSal = document.getElementById("annualSal").value;
+	var goal = document.getElementById("moneyGoal").value;
+	var due = document.getElementById("dueDate").value;
+	var temp = goal/due;
+	var emer = aSal*0.05;
+	var draw = aSal*0.95;
+	draw = draw - temp;
+	if(draw < aSal*.5){
+	document.getElementById('o').innerText = '';
+	document.getElementById('i').innerText = '';
+	document.getElementById('p').innerText = '';
+	document.getElementById('j').innerText = 'We recommend that you set a lower goal';
+	document.getElementById('k').innerText = '';
+	document.getElementById('w').innerText = '';
+	}else
+	{
+	document.getElementById('o').innerText = '$' + temp;
+	document.getElementById('i').innerText = '$' + emer;
+	document.getElementById('p').innerText = '$' + draw;
+	}
+	}
+</script>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<div>
+Please insert your name:<br><br>
+<input id = "customer" type="text" name="person" ><br><br>
+Please input the amount of money you would like to withdraw:<br><br>
+<input id = "takeOut" type="text" name="money" ><br><br>
+<button onclick = "withdraw()">Submit</button>
+</div>
+<script>
+function withdraw(){
+
+}
+</script>
+</p>
+</body>
+</center>
+</font>
+</html>
