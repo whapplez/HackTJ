@@ -3,20 +3,20 @@ var atms = null // atm array
 var counter = 0
 var count = 0
 var c = 0;
-var locations = new Array[];
-var names = new Array[];
-var merID = new Array[];
-function main() {
-  // use default values (geolocation too annoying)
-  getAtms(38.8960952, -77.1333157)
+var locations = new Array();
+var names = new Array();
+var merID = new Array();
+
+function merchantMain() {
+	generateTransactions()
 	for(var i = 0; i < atmData.length; i++) {
     atm = atmData[i]
     createMer(atm.geocode.lat, atm.geocode.lng, i)
   }
 	var l1 
 	var l2
-	Purchase result = null;
-	Merchant r = null;
+	var purchaseResult = null;
+	var merchantResult = null;
 	for(var i = 0; i < merID.length; i++ ) { //get location of each purchase. 
 		result = getPurchase(merID[i]);
 	
@@ -27,28 +27,43 @@ function main() {
 				r = getMerchant(merID[i]);
 				l1 = r[1].lat;
 				l2 = r[1].lng;
-				location[c] = l1 + ", " + l2;
+				location[c] = l1 + ", " + l2 + ", " + transactions;
 				c ++ ;
 		}
-		
+		transactions = 0;
 	}
 }
 
 function updateAtmLocation() {
+	/*
   var mapppp = map
-  var mapCenter = map.getCenter()
+  var mapCenter = map.getCenter()*/
   var lat = map.getCenter().lat()
   var lng = map.getCenter().lng()
   getAtms(lat, lng)
 }
 
-
+function generateTransactions() {
+	for(var i = 0; i < merID.length; i++){
+		var x = Math.random() * 100;
+		var s 
+		for(var y = 0; y < x; y++){
+			s = mercID[Math.random() * mercID.length]
+			merchantInfo = {
+			  "merchant_id": s,
+			  "medium": "balance",
+			  "amount": 1.00,
+			}
+			createPurchase("56241a13de4bf40b17112317", merchantInfo)
+		}
+	}
+}
 
 
 	
-function getMerLocation(id){
+/*function getMerLocation(id){
  $.ajax({
-        url: "http://api.reimaginebanking.com/merchants/1/purchases?key=" + apiKey,
+        url: "http://api.reimaginebanking.com/merchants/" + id + "/purchases?key=" + apiKey,
     type: "GET",
     contentType: 'application/json',
 	
@@ -61,7 +76,7 @@ function getMerLocation(id){
   })	
   var atmData = atms.data
  
-}
+}*/
 
 
 function createMer(lat1, lng1, id1) {
@@ -87,16 +102,14 @@ function createMer(lat1, lng1, id1) {
     type: "POST",
     contentType: 'application/json',  // this is a required header
 	data: JSON.stringify({
-  "name": name,
-  "_id": id,
-
-  },
-  "geocode": {
-    "lat": lat1,
-    "lng": lng1
-  }
-  )
-  })
+		  "name": "sampleMerchant",
+		  "geocode": {
+			"lat": 0,
+			"lng": 0
+		  }
+		})
+	})
+}
   
   define('merchant', function (require) {
     "use strict";
