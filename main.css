@@ -8,10 +8,10 @@ html, body {
 }
 
 a.animated-button.victoria-three {
-	border: 2px solid #D24D57;
+	border: 2px solid #00ccff;
 }
 a.animated-button.victoria-three:after {
-	background: #D24D57;
+	background: #00ccff;
 	opacity: .5;
 	-moz-transform: translateX(-50%) translateY(-50%);
 	-ms-transform: translateX(-50%) translateY(-50%);
@@ -23,10 +23,10 @@ a.animated-button.victoria-three:hover:after {
 	opacity: 1;
 }
 a.animated-button.victoria-four {
-	border: 2px solid #D24D57;
+	border: 2px solid #00ccff;
 }
 a.animated-button.victoria-four:after {
-	background: #D24D57;
+	background: #00ccff;
 	opacity: .5;
 	-moz-transform: translateY(-50%) translateX(-50%) rotate(90deg);
 	-ms-transform: translateY(-50%) translateX(-50%) rotate(90deg);
@@ -34,10 +34,10 @@ a.animated-button.victoria-four:after {
 	transform: translateY(-50%) translateX(-50%) rotate(90deg);
 }
 a.animated-button.victoria-three {
-	border: 2px solid #D24D57;
+	border: 2px solid ##00ccff;
 }
 a.animated-button.victoria-three:after {
-	background: #D24D57;
+	background: #00ccff;
 	opacity: .5;
 	-moz-transform: translateX(-50%) translateY(-50%);
 	-ms-transform: translateX(-50%) translateY(-50%);
@@ -51,8 +51,8 @@ a.animated-button.victoria-three:after {
 
 body {
 	font-family: 'Lato', sans-serif;
-	background: #353535;
-	color: #FFF;
+	background: #1a1a1a;
+	color: #222;
 }
 h2 {
 	color: #BDC3C7;
@@ -61,15 +61,15 @@ h2 {
   font-family: 'Raleway', sans-serif;
 }
 .mrng-60-top {
-	margin-top: 60px;
+	margin-top: 50px;
 }
 /* Global Button Styles */
 a.animated-button:link, a.animated-button:visited, button.animated-button:link, button.animated-button:visited {
 	position: relative;
 	display: block;
-	margin: 30px auto 0;
-	padding: 14px 15px;
-	padding-bottom: 18px;
+	margin: 5px auto 0;
+	padding: 5px 5px;
+	padding-bottom: 8px;
 	color: #fff;
 	font-size:14px;
 	font-weight: bold;
