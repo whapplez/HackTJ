@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+   <head>
+		<link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" type="text/css" href="main.css">
+		<title>
+			Heat Maps
+		</title>
+   </head>
+   <body>
+		<h2>Mate'E Ms</h2>
+		<div class="container"> 
+		  <div class="row">
+			<div class="col-md-6"> <a href="Merc.html" class="btn btn-sm animated-button victoria-three">Frequent ATM Map</a> </div>
+			<div class="col-md-6"> <a href="#" onclick="toggleHeatmap()" class="btn btn-sm animated-button victoria-three">Toggle Heat Map</a></div>
+		  </div>
+		</div>
+		<div id="map"></div>
+	</body>
+</html>
+
+<script async defer
+	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDkseIwUvyBwpiPVHK5t8MpSyAdEAlTomM&signed_in=true&libraries=visualization&callback=initMap">
+</script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+	var apiKey = "d1ad0dd31bbd8f0286adb10b7656953b";
+	var atms = null;
+	var map, mid, heatmap;
+	mid = {lat: 38.8992651, lng: -77.1546507};
+
+	function initMap(){
+		map = new google.maps.Map(document.getElementById('map'), {
+			center: mid,
+			zoom: 10
+		});
+		heatmap = new google.maps.visualization.HeatmapLayer({
+			data: getPoints(),
+			map: map,
+			dissipating: true
+		});
+		heatmap.set('radius', 20);
+	}
+	function toggleHeatmap(){
+		heatmap.setMap(heatmap.getMap() ? null : map);
+	}
+	function getPoints(){
+		var atm = [];
+		var atmGeoArray = [1];
+		var z;
+		var counter = 1;
+		while(atmGeoArray[0]){
+			getAtms(mid.lat, mid.lng, counter);
+			atmGeoArray = atms.data;
+			for(var a = 0; a < atmGeoArray.length; a++){
+				z = new google.maps.LatLng(atmGeoArray[a].geocode.lat,atmGeoArray[a].geocode.lng);
+				if(atm.indexOf(z) == -1){
+					atm[atm.length] = z;
+				}
+			}
+			counter++;
+		}
+		<!--for(var q = 0; q < 3; q++){
+		<!--getAtms(mid.lat - (5*q), mid.lng - (5*q));
+		/*	atmGeoArray = atms.data;
+			for(var a = 0; a < atmGeoArray.length; a++){
+				z = new google.maps.LatLng(atmGeoArray[a].geocode.lat,atmGeoArray[a].geocode.lng);
+				if(atm.indexOf(z) == -1){
+					atm[atm.length] = z;
+				}
+			}
+		}*/
+		return atm;
+	}
+	function getAtms(lat, lng, page) {
+		$.ajax({
+			url: "http://api.reimaginebanking.com/atms?lat=" + lat + "&lng=" + lng + "&rad=15&key=" + apiKey + "&page=" + page,
+			type: "GET",
+			async: false,
+			contentType: 'application/json',  // this is a required header
+			success: function(resultsJson) {
+				atms = resultsJson;
+			}
+		});
+	}
+</script>
