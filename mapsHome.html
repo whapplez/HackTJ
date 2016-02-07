@@ -6,13 +6,16 @@
 		<title>
 			Heat Maps
 		</title>
+		<!-- Latest compiled and minified CSS -->
+		<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">-->
    </head>
    <body>
-		<h2>Mate'E Ms</h2>
+		<h2><font size = 5>Mate'E Ms</font></h2>
 		<div class="container"> 
 		  <div class="row">
-			<div class="col-md-6"> <a href="Merc.html" class="btn btn-sm animated-button victoria-three">Frequent ATM Map</a> </div>
-			<div class="col-md-6"> <a href="#" onclick="toggleHeatmap()" class="btn btn-sm animated-button victoria-three">Toggle Heat Map</a></div>
+			<div class="col-md-4"><a href="Merc.html" class="btn btn-sm animated-button victoria-three">Frequent ATM Map</a> </div>
+			<div class="col-md-4"> <a href="#" onclick="toggleHeatmap()" class="btn btn-sm animated-button victoria-three">Toggle Heat Map</a></div>
+			<div class="col-md-4"> <a href="calculator.html" class="btn btn-sm animated-button victoria-three">Withdrawal Assistance</a></div>
 		  </div>
 		</div>
 		<div id="map"></div>
@@ -23,6 +26,7 @@
 	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDkseIwUvyBwpiPVHK5t8MpSyAdEAlTomM&signed_in=true&libraries=visualization&callback=initMap">
 </script>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="js/atmerc.js"></script>
 
 <script type="text/javascript">
 	var apiKey = "d1ad0dd31bbd8f0286adb10b7656953b";
@@ -33,13 +37,15 @@
 	function initMap(){
 		map = new google.maps.Map(document.getElementById('map'), {
 			center: mid,
-			zoom: 10
+			zoom: 10,
+			styles: [{"stylers":[{"saturation":-100}]},{"featureType":"water","elementType":"geometry.fill","stylers":[{"color":"#0099dd"}]},{"elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"poi.park","elementType":"geometry.fill","stylers":[{"color":"#aadd55"}]},{"featureType":"road.highway","elementType":"labels","stylers":[{"visibility":"on"}]},{"featureType":"road.arterial","elementType":"labels.text","stylers":[{"visibility":"on"}]},{"featureType":"road.local","elementType":"labels.text","stylers":[{"visibility":"on"}]},{}]
 		});
 		heatmap = new google.maps.visualization.HeatmapLayer({
 			data: getPoints(),
 			map: map,
 			dissipating: true
 		});
+		
 		heatmap.set('radius', 20);
 	}
 	function toggleHeatmap(){
